@@ -113,6 +113,7 @@ export default function Categories() {
         <FlatList
           data={allWorkersData}
           numColumns={4}
+          contentContainerStyle={{paddingHorizontal: 20}}
           keyExtractor={item => item.id}
           renderItem={renderWorker}
         />
@@ -143,7 +144,8 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    paddingHorizontal: 20
   },
   searchBarRow: {
     flexDirection: 'row',
