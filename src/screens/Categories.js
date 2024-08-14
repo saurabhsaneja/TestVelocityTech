@@ -4,13 +4,61 @@ import * as workersData from '../workersData.json'
 import { getFlag, getPersonImage } from '../helpers';
 import { AntDesign } from '../global/MyIcon';
 
+const categories = [
+  {
+    id: '1',
+    name: "Astrologer",
+    image: require('../assets/images/astrologer.jpeg')
+  },
+  {
+    id: '2',
+    name: "Assistant",
+    image: require('../assets/images/assistant.jpeg')
+  },
+  {
+    id: '3',
+    name: "Makeup",
+    image: require('../assets/images/makeup.jpeg')
+  },
+  {
+    id: '4',
+    name: "Mehndi",
+    image: require('../assets/images/mehndi.jpeg')
+  },
+  {
+    id: '5',
+    name: "Photographer",
+    image: require('../assets/images/photographer.jpeg')
+  },
+]
+
 export default function Categories() {
   const { height, width } = useWindowDimensions();
   const [originalAllWorkersData, setoriginalAllWorkersData] = useState(workersData.default)
   const [allWorkersData, setAllWorkersData] = useState(workersData.default)
   const [searchText, setSearchText] = useState('')
+  const [selectedCategory, setSelectedCategory] = useState('')
   // console.log('workersData', workersData);
 
+  const filterDataByCategory = (name) => {
+    if (selectedCategory === name) {
+      setSelectedCategory('')
+      setAllWorkersData([...originalAllWorkersData])
+    } else {
+      setSelectedCategory(name)
+      let allWorkersDataCopy = [...originalAllWorkersData]
+      allWorkersDataCopy = allWorkersDataCopy?.filter(work => work?.Worker_Role === name)
+      setAllWorkersData([...allWorkersDataCopy])
+    }
+  }
+  const renderCategory = ({ item, index }) => {
+    return (
+      <TouchableOpacity onPress={() => { filterDataByCategory(item?.name) }} style={[{ marginRight: 10, alignItems: 'center' }, selectedCategory === item?.name ? { borderWidth: 0.5, borderColor: 'blue' } : null]} >
+        <Image source={item?.image} style={{ width: width / 4 - 20, height: width / 4 - 20, borderRadius: (width / 4 - 20) / 2 }} />
+        <Text style={{ color: 'black', marginTop: 10 }} >{item?.name}</Text>
+      </TouchableOpacity>
+    )
+  }
   const renderWorker = ({ item, index }) => {
     return (
       <View style={{ marginHorizontal: 5 }} >
@@ -52,6 +100,14 @@ export default function Categories() {
   }
   return (
     <View style={styles.container}>
+      <FlatList
+        data={categories}
+        horizontal
+        contentContainerStyle={{ backgroundColor: '#e6e3e3', marginBottom: 20, padding: 10 }}
+        keyExtractor={item => item.id}
+        renderItem={renderCategory}
+      />
+      <View></View>
       <SearchBar />
       {allWorkersData?.length > 0 ?
         <FlatList
@@ -67,10 +123,13 @@ export default function Categories() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    // flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'white',
+    // padding: 20
+  },
+  mainView: {
     padding: 20
   },
   flag: {
