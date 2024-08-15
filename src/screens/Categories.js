@@ -41,6 +41,7 @@ export default function Categories() {
   // console.log('workersData', workersData);
 
   const filterDataByCategory = (name) => {
+    setSearchText('')
     if (selectedCategory === name) {
       setSelectedCategory('')
       setAllWorkersData([...originalAllWorkersData])
@@ -78,6 +79,7 @@ export default function Categories() {
           <TextInput
             style={styles.input}
             onChangeText={(txt) => {
+              setSelectedCategory('')
               setSearchText(txt)
               if (txt?.trim() !== '') {
                 let allWorkersDataCopy = [...allWorkersData]
@@ -136,6 +138,7 @@ export default function Categories() {
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor:'white',
     // flex: 1,
     justifyContent: 'center',
     // alignItems: 'center',

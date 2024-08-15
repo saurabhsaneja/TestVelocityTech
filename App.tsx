@@ -3,7 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Welcome from './src/screens/Welcome';
 import Categories from './src/screens/Categories';
-import { Platform, StyleSheet, Text, View } from 'react-native';
+import { Platform, SafeAreaView, StatusBar, StyleSheet, Text, View } from 'react-native';
 import { getFont } from './src/helpers';
 
 const Tab = createBottomTabNavigator();
@@ -18,22 +18,25 @@ export default function App() {
   };
   return (
     <NavigationContainer>
-      <Tab.Navigator backBehavior="history" screenOptions={screenOptions}>
-        <Tab.Screen name="Categories" component={Categories} options={{
-          tabBarIcon: ({ focused }) => (
-            <View style={styles.tabStyle}>
-              <Text style={[styles.text, focused ? { color: 'orange' } : null]}>Categories</Text>
-            </View>
-          ),
-        }} />
-        <Tab.Screen name="Welcome" component={Welcome} options={{
-          tabBarIcon: ({ focused }) => (
-            <View style={styles.tabStyle}>
-              <Text style={[styles.text, focused ? { color: 'orange' } : null]}>Welcome</Text>
-            </View>
-          ),
-        }} />
-      </Tab.Navigator>
+      <SafeAreaView style={{ flex: 1 }}>
+        <StatusBar backgroundColor={'green'} />
+        <Tab.Navigator backBehavior="history" screenOptions={screenOptions}>
+          <Tab.Screen name="Categories" component={Categories} options={{
+            tabBarIcon: ({ focused }) => (
+              <View style={styles.tabStyle}>
+                <Text style={[styles.text, focused ? { color: 'orange' } : null]}>Categories</Text>
+              </View>
+            ),
+          }} />
+          <Tab.Screen name="Welcome" component={Welcome} options={{
+            tabBarIcon: ({ focused }) => (
+              <View style={styles.tabStyle}>
+                <Text style={[styles.text, focused ? { color: 'orange' } : null]}>Welcome</Text>
+              </View>
+            ),
+          }} />
+        </Tab.Navigator>
+      </SafeAreaView>
     </NavigationContainer>
   );
 }
