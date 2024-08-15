@@ -131,14 +131,14 @@ export default function Categories() {
           keyExtractor={item => item.id}
           renderItem={renderWorker}
         />
-        : <Text style={{ color: 'black', marginVertical: 10 }} >No workers data</Text>}
+        : <Text style={{ color: 'black', marginVertical: 10, alignSelf: 'center' }} >No workers data</Text>}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor:'white',
+    backgroundColor: 'white',
     // flex: 1,
     justifyContent: 'center',
     // alignItems: 'center',
