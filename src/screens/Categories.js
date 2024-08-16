@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, FlatList, Image, useWindowDimensions, TextInput, TouchableOpacity } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Text, StyleSheet, FlatList, Image, useWindowDimensions, TextInput, TouchableOpacity, Alert } from 'react-native';
 import * as workersData from '../workersData.json'
 import { getFlag, getFont, getPersonImage } from '../helpers';
 import { AntDesign, Entypo } from '../global/MyIcon';
@@ -39,6 +39,10 @@ export default function Categories() {
   const [searchText, setSearchText] = useState('')
   const [selectedCategory, setSelectedCategory] = useState('')
   // console.log('workersData', workersData);
+
+  useEffect(() => {
+    Alert.alert('keyboard will close after every letter you type in textinput due to some incompability')
+  }, [])
 
   const filterDataByCategory = (name) => {
     setSearchText('')
